@@ -94,12 +94,16 @@ header ul{
 
 ul li{
     list-style: none;
-    /* padding:10px; */
+    padding:10px;
     font-weight: lighter;
 }
 ul li:hover{
     font-weight:bold;
     color:royalblue;
+}
+
+header ul li{
+    padding: 0px;
 }
 
 .question-container{
