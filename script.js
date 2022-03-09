@@ -47,7 +47,16 @@ var cEl = document.getElementById('choice-c-text');
 var dEl = document.getElementById('choice-d-text');
 var currentQuestion = 0;
 var currentCorrect = "";
+var highScoreList = document.getElementById('highScores');
+var highScore1 = document.getElementById('score1');
 var score = 0;
+var highscore = localStorage.getItem("highscore", score);
+
+if(highscore){
+    highScore1 = document.createElement("li");
+    highScore1.textContent = " High Score: "+highscore;
+    highScoreList.appendChild(highScore1);
+}
 
 startQuiz = function(){
 
@@ -74,7 +83,12 @@ startQuiz = function(){
 }
 
     
-
+    uncheckRadios = function(){
+        document.getElementById('choice-a').checked = false
+        document.getElementById('choice-b').checked = false
+        document.getElementById('choice-c').checked = false
+        document.getElementById('choice-d').checked = false
+    }
         
         
             questionEl.textContent = quizData[0].question;
@@ -102,6 +116,7 @@ startQuiz = function(){
                 if(currentCorrect == quizData[currentQuestion].correct){
                     window.alert("Correct!")
                     console.log("correct")
+                    uncheckRadios();
                     currentQuestion++;
                     score++;
                     if(currentQuestion === 4){
@@ -112,6 +127,7 @@ startQuiz = function(){
                 else if(currentCorrect != quizData[currentQuestion].correct){
                     window.alert("Incorrect!")
                     console.log("incorrect")
+                    uncheckRadios();
                     currentQuestion++;
                     if(currentQuestion === 4){
                         window.alert("You are done!")
@@ -132,12 +148,15 @@ startQuiz = function(){
             }
     
             loadEndScreen = function(){
-                    quizEl.innerHTML = "<h3>Thank You For Participating In The Madness, If You Had Fun, Give Me A Kiss</h3><h4>Your score was"+ score +"</h4><button type='button' id='startBtn'>PLAY AGAIN</button>"
+                    quizEl.innerHTML = "<h3>Thank You For Participating In The Madness, If You Had Fun, Give Me A Kiss</h3><h4>Your score was "+ score +"</h4><button type='button' id='startBtn'>PLAY AGAIN</button>"
 
-                    localStorage.setItem("score", score);
+                    if(score > localStorage.getItem("highscore")){
+                        localStorage.setItem("highscore", score);
+                    }
+                    
                 
                     
-                    startBtn.addEventListener("click, reloadFunction")
+                    startBtn.addEventListener("click" , reloadFunction)
                 }
        
              

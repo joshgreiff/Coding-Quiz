@@ -26,9 +26,19 @@ header{
     min-width: 100%;
     justify-content: center;
     background-color: white;
-    
+    min-height: 125px;
 }
 
+header h1{
+    font-size: 25px;
+    flex-wrap: wrap;
+    position: absolute;
+}
+
+header ul{
+    position:relative;
+    top: 20px;
+}
 
 
 
@@ -84,7 +94,7 @@ header{
 
 ul li{
     list-style: none;
-    padding:10px;
+    /* padding:10px; */
     font-weight: lighter;
 }
 ul li:hover{
@@ -115,4 +125,22 @@ ul li:hover{
 
 #confirmBtn:hover{
     background-color:lightcoral;
+}
+
+#startBtn{
+    padding: 5px;
+    margin: 8px auto;
+}
+
+#highScores{
+    position: relative;
+    padding:30px;
+    display: inline;
+    font-size: 20px;
+    align-items: center;
+    justify-content: left;;
+}
+
+header ul li{
+    position: relative;
 }
