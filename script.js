@@ -11,33 +11,46 @@ const quizData = [
         question: "What does JSON stand for?",
         a: "JavaScript Open Naming",
         b: "Just So Obviously Nacho",
-        C: "JavaScript Object Notation",
+        c: "JavaScript Object Notation",
         d: "Jesus Slept On Naptime",
-        correct: "d"
+        correct: "c"
+    },
+    {
+        question: "What special characters are used to define an object in JavaScript",
+        a: "{}",
+        b: "[]",
+        c: "()",
+        d: "69",
+        correct: "a"
+    },
+    {
+        question: "How late did I stay up working on this?",
+        a: "midnight",
+        b: "4am",
+        c: "its 5:38 am and still going strong",
+        d: "2am",
+        correct: "c"
+    },
+    {
     }
-    
 
     
 ];
-
 var body = document.getElementById('body');
 var quizEl = document.getElementById('inner-div');
 var originalHTML = document.getElementById('inner-div').innerHTML
 var countdownDisplay = document.createElement("div");
+var questionEl = document.getElementById('question-text');
+var aEl = document.getElementById('choice-a-text');
+var bEl = document.getElementById('choice-b-text');
+var cEl = document.getElementById('choice-c-text');
+var dEl = document.getElementById('choice-d-text');
+var currentQuestion = 0;
+var currentCorrect = "";
+var score = 0;
 
-// when the page loads, the inner HTMl is changed to display the start screen
-loadStartScreen = function(){
-    quizEl.innerHTML = "<h3>Welcome To The Ultimate Coding Quiz Of Glory</H3> <h4>You will have 60 seconds to complete the quiz</h4><button type='button' id='startBtn'>START QUIZ</button>"
-
-
-    startBtn.addEventListener("click",startQuiz);
-
-}
-window.addEventListener("load",loadStartScreen);
-
-// When the user clicks start, the inner HTML returns to the question format, and the timer begins
 startQuiz = function(){
-    quizEl.innerHTML = document.getElementById('inner-div').innerHTML = originalHTML
+
     
     var timeRemaining = 75;
 
@@ -58,17 +71,107 @@ startQuiz = function(){
     };
     setInterval(decreaseTimer, 1000);
     quizEl.appendChild(countdownDisplay);
-     
 }
 
+    
+
+        
+        
+            questionEl.textContent = quizData[0].question;
+            aEl.textContent = quizData[0].a;
+            bEl.textContent = quizData[0].b;
+            cEl.textContent = quizData[0].c;
+            dEl.textContent = quizData[0].d;   
+        
+
+            checkAnswer = function(){     
+
+                if(document.getElementById('choice-a').checked){
+                    currentCorrect = "a"
+                }
+                else if(document.getElementById('choice-b').checked){
+                    currentCorrect = "b"
+                }
+                else if(document.getElementById('choice-c').checked){
+                    currentCorrect = "c"
+                }
+                else if(document.getElementById('choice-d').checked){
+                    currentCorrect = "d"
+                }
+    
+                if(currentCorrect == quizData[currentQuestion].correct){
+                    window.alert("Correct!")
+                    console.log("correct")
+                    currentQuestion++;
+                    score++;
+                    if(currentQuestion === 4){
+                        window.alert("You are done!")
+                        loadEndScreen();
+                    }
+                }
+                else if(currentCorrect != quizData[currentQuestion].correct){
+                    window.alert("Incorrect!")
+                    console.log("incorrect")
+                    currentQuestion++;
+                    if(currentQuestion === 4){
+                        window.alert("You are done!")
+                        loadEndScreen();
+                    }
+                }
+                questionEl.textContent = quizData[currentQuestion].question;
+                aEl.textContent = quizData[currentQuestion].a;
+                bEl.textContent = quizData[currentQuestion].b;
+                cEl.textContent = quizData[currentQuestion].c;
+                dEl.textContent = quizData[currentQuestion].d; 
+                
+                
+            };
+            
+            reloadFunction = function(){
+                location.reload();
+            }
+    
+            loadEndScreen = function(){
+                    quizEl.innerHTML = "<h3>Thank You For Participating In The Madness, If You Had Fun, Give Me A Kiss</h3><h4>Your score was"+ score +"</h4><button type='button' id='startBtn'>PLAY AGAIN</button>"
+
+                    localStorage.setItem("score", score);
+                
+                    
+                    startBtn.addEventListener("click, reloadFunction")
+                }
+       
+             
+
+            
+            confirmBtn.addEventListener("click",checkAnswer);
+       
+
+
+        
+
+
+        if(window.confirm("Welcome To The Ultimate Test Of Coding Knowledge In The Universe, would you like to begin? you will have 75 seconds to complete the quiz.")){
+        startQuiz();
+        }
 
 
 
-changeQuestion = function(){
-    console.log("hi")
-}
+
+// loadStartScreen = function(){
+//     quizEl1.innerHTML = "<h3>Welcome To The Ultimate Coding Quiz Of Glory</H3> <h4>You will have 60 seconds to complete the quiz</h4><button type='button' id='startBtn'>START QUIZ</button>"
 
 
-confirmBtn.addEventListener("click", changeQuestion)
+//     startBtn.addEventListener("click",startQuiz);
+
+// }
+// loadStartScreen();
+
+
+
+
+
+
+
+
 
 
